@@ -43,7 +43,30 @@ Class MainWindow
 
     End Sub
     Private Sub AddFolder_Click(sender As Object, e As RoutedEventArgs)
+        Dim browser As New FolderBrowserDialog
+        If browser.ShowDialog = System.Windows.Forms.DialogResult.OK Then
+            Dim folder As String = browser.SelectedPath
+            Dim di As New IO.DirectoryInfo(folder)
+            Dim diar1 As IO.FileInfo() = di.GetFiles()
+            Dim dra As IO.FileInfo
+            Dim AcceptedExt As String() = {".bmp", ".jpg", ".jpeg", ".png", ".tif", ".tiff", ".tga"}
 
+            'list the names of all files in the specified directory
+            For Each dra In diar1
+                If AcceptedExt.Contains(dra.Extension) Then
+                    Dim drag As String = dra.FullName
+                    Dim x As ImageSource = New BitmapImage(New Uri(drag))
+                    Files.Add(New FileEntry() With {
+                .Image = x,
+                .FileName = drag})
+                End If
+            Next
+        End If
+    End Sub
+
+    Private Sub StartButton_Click(sender As Object, e As RoutedEventArgs)
+        Dim settWin As New settings
+        settWin.ShowDialog()
     End Sub
 End Class
 

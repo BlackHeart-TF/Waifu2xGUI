@@ -11,7 +11,7 @@
             <DockPanel DockPanel.Dock="Top">
                 <Menu DockPanel.Dock="Top">
                     <MenuItem Header="_File">
-                        <MenuItem Header="_Add Folder" Click="Button_Click"/>
+                        <MenuItem Header="_Add Folder" Click="AddFolder_Click"/>
                         <MenuItem Header="_Add File" Click="AddFile_Click"/>
                         <Separator />
                         <MenuItem Header="_Clear" Click="_Delete_Click"/>
@@ -23,14 +23,13 @@
                         <MenuItem Header="_About" />
                     </MenuItem>
                 </Menu>
-                <StackPanel></StackPanel>
             </DockPanel>
 
             <DockPanel  Height="28" DockPanel.Dock="Bottom">
                 <Button Content="Add Folder" Margin="5" Width="80" HorizontalAlignment="Left" Click="AddFolder_Click" />
                 <Button Content="Add File" Margin="5" Width="80" Click="AddFile_Click" />
                 <Button Name="_Delete" Content="Remove File" Margin="5" Width="80" Click="_Delete_Click" />
-                <Button Content="Start" Margin="5" Width="80" HorizontalAlignment="Right" />
+                <Button x:Name="StartButton" Content="Start" Margin="5" Width="80" HorizontalAlignment="Right" Click="StartButton_Click"/>
 
             </DockPanel>
             <DockPanel>
