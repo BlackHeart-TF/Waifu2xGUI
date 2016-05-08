@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.Windows.Forms
 Imports System.Drawing
+Imports System.IO
 
 Class MainWindow
     Public Property Files As ObservableCollection(Of FileEntry)
@@ -66,7 +67,22 @@ Class MainWindow
 
     Private Sub StartButton_Click(sender As Object, e As RoutedEventArgs)
         Dim settWin As New settings
-        settWin.ShowDialog()
+        If settWin.ShowDialog() Then
+            For Each File As FileEntry In Files
+                Dim commandflags As String
+                If settWin.outfolder = "" Then
+                    commandflags = settWin.commandflags + "-i " + File.FileName
+                Else
+                    Dim filename As String = Path.GetFileNameWithoutExtension(File.FileName)
+                    commandflags = settWin.commandflags + settWin.outfolder + "\" + filename + "." + settWin.extention + """ -i """ + File.FileName + """"
+                End If
+                Dim exedir As String = Environment.CurrentDirectory + "\waifu2x-converter_x64.exe"
+                'MessageBox.Show(exedir)
+                Dim thisproc As Process = Process.Start(exedir, commandflags)
+                thisproc.WaitForExit()
+            Next
+        End If
+
     End Sub
 End Class
 
